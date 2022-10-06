@@ -3,12 +3,13 @@ using System.Text;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using System.Diagnostics;
+using System.Threading;
 
 namespace WForm_GetRfidLogsFromZebraPrinter01
 {
     public partial class Form1 : Form
     {
-        string ipAddress = "192.168.4.54";
+        string ipAddress = "192.168.4.51";
         string zplStrings = "^XA^RFR,H^XZ";
 
         public Form1()
@@ -20,7 +21,7 @@ namespace WForm_GetRfidLogsFromZebraPrinter01
         private void button1_Click(object sender, EventArgs e)
         {
             SgdOverTcp_SetRfidLogEntries(ipAddress);
-            SendZplOverTcp(ipAddress);
+            SendZplOverTcp(ipAddress, zplStrings);
 
             //SgdOverTcp(ipAddress);
             //SgdOverMultiChannelNetworkConnection(ipAddress);
@@ -28,6 +29,9 @@ namespace WForm_GetRfidLogsFromZebraPrinter01
 
 
         }
+
+
+
 
         // Get Log Entires
         private void button2_Click(object sender, EventArgs e)
@@ -39,8 +43,84 @@ namespace WForm_GetRfidLogsFromZebraPrinter01
         }
 
 
+
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string str;
+            string t = ",00000000,";
+
+            Debug.WriteLine(String.Format("{0:yyyy”NMMŒŽdd“ú(ddd) HHŽžmm•ªss•bfff}", DateTime.Now) + " :Delete set rfid log.");
+            SgdOverTcp_DelRfidLogEntries(ipAddress);
+
+
+            // Create Loop x 10
+
+            for (int i = 0; i< 10; i++)
+            {
+                zplStrings = "^XA^RFW,H^FD0000000000A" + i.ToString() + "^XZ";
+                // zplStrings = @"^XA^MMC^CWK,E:IPAG.TTF^FS^CI28^PW1146^LL319^LS0^FT21,136^AK,41,41^FDŒ»^FS^FT21,184^AK,41,41^FD•i^FS^FT21,231^AK,41,41^FD•[^FS^FT165,68^AK,50,50^FDBXT155-38-10F-5C=1^FS^FT0,117^FB389,1,12,R^AK,45,45^FD20^FS^FT0,117^FB708,1,12,R^AK,45,45^FD20^FS^FT0,113^FB933,1,11,R^AK,41,41^FD1/1^FS^FT165,150^AK,29,29^FDŽŸH’ö‹¦—Í‰ïŽÐ ƒXƒŠ[ƒPŠ”^FS^FT248,209^AK,50,50^FD2022/05/24^FS^FT148,255^AK,41,41^FDƒ}ƒjƒz[ƒ‹ƒhƒx[ƒX@^FS^FT164,195^FB982,1,7,C^AK,29,29^FD‚`‚r^FS^FT148,291^AK,33,33^FD02001 ”Ñ’Ë“SHiŠ”j^FS^FT791,291^AK,33,33^FD519999635^FS^FT774,190^AK,25,25^FD^FS^FT644,242^AK,29,29^FD023AAC62-66^FS^FT0,60^FB1121,1,11,R^AK,41,41^FD2^FS^FT0,92^FB1121,1,8,R^AK,33,33^FD8461^FS^FT992,234^BQN,2,4^FH\^FDMA,BXT155-38-10F-5C=1$0000020$003020012209051519999635010001$^FS^FO602,159^GB106,47,5^FS^FT709,291^AK,33,33^FD’”Ô^FS^FT709,194^AK,29,29^FDŽè”z^FS^FT0,60^FB1068,1,11,R^AK,41,41^FDÝ•Ï^FS^FT573,246^AK,33,33^FDH†^FS^FT71,246^AK,33,33^FD•i–¼^FS^FT71,291^AK,33,33^FDŽÐ–¼^FS^FT71,198^AK,33,33^FD”[“ü“ú^FS^FT71,154^AK,33,33^FDêŠ^FS^FT71,111^AK,37,37^FD”—Ê^FS^FT71,56^AK,37,37^FD•i”Ô^FS^FT957,295^AK,58,58^FDH^FS^FT988,282^FB158,1,7,C^AK,29,29^FD‚r‚l‚b^FS^FO951,245^GB41,51,5^FS^FT969,84^AK,25,25^FD¿‹Œ³^FS^FT933,84^AK,25,25^FD‘Ü^FS^FT933,114^AK,25,25^FD” ^FS^FT390,112^AK,33,33^FDŒÂ^FS^FT709,112^AK,33,33^FDŒÂ^FS^FT449,112^AK,33,33^FDŒv^FS^LRY^FO21,53^GB0,224,41^FS^LRN^LRY^FO1013,249^GB94,0,44^FS^LRN^PQ1,,,Y^RFW,H^FD534d43001efe909301000001^FS^XZ";
+                //Debug.WriteLine(zplStrings);
+
+                Debug.WriteLine(String.Format("{0:yyyy”NMMŒŽdd“ú(ddd) HHŽžmm•ªss•bfff}", DateTime.Now) + " :Label #" + i);
+
+                Debug.WriteLine(String.Format("{0:yyyy”NMMŒŽdd“ú(ddd) HHŽžmm•ªss•bfff}", DateTime.Now) + " :Set rfid log.");
+                SgdOverTcp_SetRfidLogEntries(ipAddress);
+
+                Debug.WriteLine(String.Format("{0:yyyy”NMMŒŽdd“ú(ddd) HHŽžmm•ªss•bfff}", DateTime.Now) + " :Send ZPL.");
+                SendZplOverTcp(ipAddress, zplStrings);
+
+
+                while (true)
+                {
+                    Thread.Sleep(100);
+                    str = SgdOverTcp_GetRfidLogEntries(ipAddress);
+                    //Debug.WriteLine($"Length is -- > {str.IndexOf(t)}");
+                    if (str.IndexOf(t) > -1)
+                    {
+                        Debug.WriteLine(String.Format("{0:yyyy”NMMŒŽdd“ú(ddd) HHŽžmm•ªss•bfff}", DateTime.Now) + " :Recieved rfid logs.");
+                        Debug.WriteLine($"RFID log is -- > {str}");
+                        break;
+                    }
+                }
+
+                Debug.WriteLine(String.Format("{0:yyyy”NMMŒŽdd“ú(ddd) HHŽžmm•ªss•bfff}", DateTime.Now) + " :Delete set rfid log.");
+                SgdOverTcp_DelRfidLogEntries(ipAddress);
+
+                Debug.WriteLine(String.Format("{0:yyyy”NMMŒŽdd“ú(ddd) HHŽžmm•ªss•bfff}", DateTime.Now) + " :End process.");
+
+
+
+            }
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Connection connection = new TcpConnection(ipAddress, TcpConnection.DEFAULT_ZPL_TCP_PORT);
+            try
+            {
+                connection.Open();
+                ZebraPrinter printer = ZebraPrinterFactory.GetInstance(connection);
+
+                PrinterStatus printerStatus = printer.GetCurrentStatus();
+
+                if (printerStatus.isReadyToPrint) { Debug.WriteLine("Ready To Print"); }
+                else if (printerStatus.isRibbonOut) { Debug.WriteLine("Cannot Print. Ribbon Out."); }
+                else if (printerStatus.isHeadOpen) { Debug.WriteLine("Cannot Print. Print Head Open."); }
+                else if (printerStatus.isPaperOut) { Debug.WriteLine("Cannot Print. Paper Out."); }
+                else if (printerStatus.isPaused) { Debug.WriteLine("Cannot Print. Printer Paused. "); }
+                else { Debug.WriteLine("Cannot Print."); }
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
         // Read RFID tags by ZPL
-        private void SendZplOverTcp(string theIpAddress)
+        private void SendZplOverTcp(string theIpAddress,string zpl)
         {
             // Instantiate connection for ZPL TCP port at given address
             Connection thePrinterConn = new TcpConnection(theIpAddress, TcpConnection.DEFAULT_ZPL_TCP_PORT);
@@ -51,7 +131,7 @@ namespace WForm_GetRfidLogsFromZebraPrinter01
                 thePrinterConn.Open();
 
                 // This example prints "This is a ZPL test." near the top of the label.
-                string zplData = zplStrings;
+                string zplData = zpl;
 
 
                 // Send the data to printer as a byte array.
@@ -94,15 +174,16 @@ namespace WForm_GetRfidLogsFromZebraPrinter01
 
 
         // Get RFID Log Entires
-        public static void SgdOverTcp_GetRfidLogEntries(string ipAddress)
+        public static string SgdOverTcp_GetRfidLogEntries(string ipAddress)
         {
             int port = 9100;
             Connection printerConnection = new TcpConnection(ipAddress, port);
+            string sgdResult = "";
             try
             {
                 printerConnection.Open();
-                string sgdResult = SGD.GET("rfid.log.entries", printerConnection);
-                Debug.WriteLine($"RFID log is -- > {sgdResult}");
+                sgdResult = SGD.GET("rfid.log.entries", printerConnection);
+                //Debug.WriteLine($"RFID log is -- > {sgdResult}");
             }
             catch (ConnectionException e)
             {
@@ -112,7 +193,11 @@ namespace WForm_GetRfidLogsFromZebraPrinter01
             {
                 printerConnection.Close();
             }
+
+            return sgdResult;
+
         }
+
 
         // Clear RFID Log Entires
         public static void SgdOverTcp_DelRfidLogEntries(string ipAddress)
