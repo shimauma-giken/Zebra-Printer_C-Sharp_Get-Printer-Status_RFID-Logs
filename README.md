@@ -1,6 +1,6 @@
 # C-Sharp Programs for Getting Printer Status and Printer Status
 
-C# source code that indicates how to get RFID encode logs via TCP/IP. Developed under conditions below. Enjoy!
+C# source code that indicates how to get RFID encode logs/ Printer stauts via TCP/IP. Developed under conditions below. Enjoy!
 
 | method| function |
 | --- | --- |
