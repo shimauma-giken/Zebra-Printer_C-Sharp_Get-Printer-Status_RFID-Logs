@@ -4,10 +4,7 @@ C# source code that indicates how to get RFID encode logs via TCP/IP. Developed 
 
 | method| function |
 | --- | --- |
-| button 01 | Set RFID logging and read RFID tag ｜
-| button 01 |  ｜
-| button 01 |  ｜
-| button 01 |  ｜
-| button 01 |  ｜
-| button 01 |  ｜
+| button 01 | Set RFID logging and read RFID tag |
+| button 01 | Get RFID Log Entires |
+| button 01 | Get RFID Log Entires |
 
