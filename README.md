@@ -1,7 +1,7 @@
 # C-Sharp Programs for Getting Zebra Printer Status and RFID logs
 
 C# source code that indicates how to get RFID encode logs/ Printer stauts via TCP/IP. Developed under conditions below. Enjoy!  
-C# ソースコード集です。お問い合わせの多いプリンタステータス取得方法、RFIDログ取得方法などをまとめています。
+C# ソースコード集です。お問い合わせの多いプリンタステータス取得方法、RFIDログ取得方法などをまとめています。ステータス取得方法は複数種類あり、それぞれ取得可能データやパフォーマンスが異なるため、テストの上で任意の方法を選択ください。
 
 | method| function |
 | --- | --- |
