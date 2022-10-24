@@ -31,7 +31,7 @@ namespace WForm_GetRfidLogsFromZebraPrinter01
         }
 
 
-        // Get Log Entires
+        // Get RFID Log Entires
         private void button2_Click(object sender, EventArgs e)
         {
             SgdOverTcp_GetRfidLogEntries(ipAddress);
@@ -40,7 +40,7 @@ namespace WForm_GetRfidLogsFromZebraPrinter01
 
         }
 
-
+        // Encode 10 tags and get encode results.
         private void button3_Click(object sender, EventArgs e)
         {
             string str;
@@ -172,6 +172,28 @@ namespace WForm_GetRfidLogsFromZebraPrinter01
             }
         }
 
+        // Syslog - Erase Syslog Entires
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string str;
+            str = SgdOverTcp_EraseSyslogEntries(ipAddress);
+        }
+
+        // Syslog - Enable Syslog
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string str;
+            str = SgdOverTcp_EnableSyslog(ipAddress);
+
+        }
+
+        // Syslog - Get Syslog Entries
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string str;
+            str = SgdOverTcp_GetSyslogEntries(ipAddress);
+
+        }
 
         // Read RFID tags by ZPL
         private void SendZplOverTcp(string theIpAddress,string zpl)
@@ -451,28 +473,6 @@ namespace WForm_GetRfidLogsFromZebraPrinter01
         }
 
 
-        // Syslog - Erase Syslog Entires
-        private void button6_Click(object sender, EventArgs e)
-        {
-            string str;
-            str = SgdOverTcp_EraseSyslogEntries(ipAddress);
-        }
-
-        // Syslog - Enable Syslog
-        private void button7_Click(object sender, EventArgs e)
-        {
-            string str;
-            str = SgdOverTcp_EnableSyslog(ipAddress);
-
-        }
-
-        // Syslog - Get Syslog Entries
-        private void button8_Click(object sender, EventArgs e)
-        {
-            string str;
-            str = SgdOverTcp_GetSyslogEntries(ipAddress);
-
-        }
 
 
     }
